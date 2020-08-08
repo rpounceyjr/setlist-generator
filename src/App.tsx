@@ -1,12 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 // import './App.css';
-import './styles/app.css'
+import './styles/app.css';
+import songs from './utils/songs.json'
+import SongDiv from './components/SongDiv'
 
-function App() {
+const App: React.FC = () => {
+  const [songState, setSongState] = useState(songs)
+
   return (
     <div className= "mx-auto">
-     <p className= "text-green-500">'sup</p>
+     <p className= "text-blue-500">'sup</p>
+     {songState.map(song => (
+     <SongDiv title={song.title} composer={song.composer} songKey={song.songKey} style={song.style}/>
+     )
+     )
+}
      </div>
   );
 }

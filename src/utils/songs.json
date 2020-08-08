@@ -1,0 +1,16 @@
+[
+    {
+        "id": 1,
+        "title": "Beatrice",
+        "composer": "Sam Rivers",
+        "songKey": "F Major",
+        "style": "Swing"
+    },
+    {
+        "id": 2,
+        "title": "Triste",
+        "composer": "Antonio Carlos Jobim",
+        "songKey": "Bb Major",
+        "style": "Bossa"
+    }
+]
