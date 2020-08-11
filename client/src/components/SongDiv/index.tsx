@@ -1,5 +1,5 @@
 import React from 'react';
-import { prependOnceListener } from 'process';
+// import { prependOnceListener } from 'process';
 
 interface Props{
     title: string,
@@ -9,7 +9,7 @@ interface Props{
 }
 const SongDiv: React.FC<Props> = ({title, composer, songKey, style}) => {
     return (
-        <div><span className="text-lg">Title:{title}</span>, Composer: {composer}, Key: {songKey}, Style: {style}</div>
+        <div className="text-center border-solid border-4 border-grey-600"><span className="text-lg">Title:{title}</span> || Composer: {composer} || Key: {songKey} || Style: {style}</div>
     )
 };
 
