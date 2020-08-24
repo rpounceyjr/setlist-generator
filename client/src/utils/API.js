@@ -1,6 +1,10 @@
 import axios from 'axios';
 
 export const getAllSongs = function() {
-    console.log("API");
     return axios.get('/api/songs');
 };
+
+export const createNewSong = function(song) {
+    console.log("song", song)
+    return axios.post('api/songs', song);
+}

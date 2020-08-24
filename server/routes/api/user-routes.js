@@ -1,9 +1,10 @@
 const router = require('express').Router();
 
 const {
-    getAllSongs
-} = require('../../controller/user-controller')
+    getAllSongs,
+    createNewSong
+} = require('../../controller/user-controller');
 
-router.route('/songs').get(getAllSongs);
+router.route('/songs').get(getAllSongs).post(createNewSong);
 
 module.exports = router;
