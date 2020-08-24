@@ -1,12 +1,21 @@
 import React from "react";
+import ResetButton from "../ResetButton";
 
 interface Props {
   filterParameters: any;
   filterSongs: (event: any) => void;
+  loadInitialSongs: () => void;
   handleFilterSongInputChange: (event: any) => void;
+  setlistState: {};
 }
 
-const FilterRow: React.FC<Props> = ({ filterParameters, filterSongs, handleFilterSongInputChange }) => {
+const FilterRow: React.FC<Props> = ({
+  filterParameters,
+  filterSongs,
+  loadInitialSongs,
+  handleFilterSongInputChange,
+  setlistState,
+}) => {
   return (
     <div className="text-center">
       <form>
@@ -23,6 +32,10 @@ const FilterRow: React.FC<Props> = ({ filterParameters, filterSongs, handleFilte
           Filter
         </button>
       </form>
+      <ResetButton
+        loadInitialSongs={() => loadInitialSongs()}
+        setlistState={setlistState}
+      />
     </div>
   );
 };

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import "./styles/app.css";
 import FilterRow from "./components/FilterRow";
 import NewSongInput from "./components/NewSongInput";
+import ResetButton from "./components/ResetButton";
 import SongDiv from "./components/SongDiv";
 import SortingRow from "./components/SortingRow";
 import { getAllSongs, createNewSong } from "./utils/API";
@@ -87,7 +88,7 @@ const App: React.FC = () => {
   const handleNewSongInputChange = (event: any) => {
     let { name, value } = event.target;
     setNewSongState({ ...newSongState, [name]: value });
-    console.log("new song state", newSongState);
+    getAllSongs();
   };
 
   const handleFilterSongInputChange = (event: any) => {
@@ -98,12 +99,8 @@ const App: React.FC = () => {
 
   const filterSongs = (event: any) => {
     event.preventDefault();
-    let filteredSongs;
-    if (filterParameters.composer.trim() === "") {
-      filteredSongs = setlistState;
-    }
 
-    filteredSongs = [...setlistState].filter((song) => {
+    const filteredSongs = [...setlistState].filter((song) => {
       return song.composer === filterParameters.composer;
     });
 
@@ -127,7 +124,9 @@ const App: React.FC = () => {
       <FilterRow
         filterSongs={(event: any) => filterSongs(event)}
         filterParameters={filterParameters}
+        loadInitialSongs={loadInitialSongs}
         handleFilterSongInputChange={handleFilterSongInputChange}
+        setlistState={setlistState}
       />
       {!isLoading &&
         setlistState &&
