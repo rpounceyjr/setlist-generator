@@ -6,7 +6,7 @@ interface Props {
   songKey?: string;
   style?: string;
   songState: object;
-  handleInputChange: (event: any) => void;
+  handleNewSongInputChange: (event: any) => void;
   submitSong: (event: any, song: any) => void;
 }
 
@@ -16,7 +16,7 @@ const NewSongInput: React.FC<Props> = ({
   songKey,
   style,
   songState,
-  handleInputChange,
+  handleNewSongInputChange,
   submitSong,
 }) => {
   return (
@@ -25,25 +25,25 @@ const NewSongInput: React.FC<Props> = ({
         name="title"
         placeholder="Title"
         value={title}
-        onChange={(event) => handleInputChange(event)}
+        onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="composer"
         placeholder="Composer"
         value={composer}
-        onChange={(event) => handleInputChange(event)}
+        onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="songKey"
         placeholder="Key"
         value={songKey}
-        onChange={(event) => handleInputChange(event)}
+        onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="style"
         placeholder="Style"
         value={style}
-        onChange={(event) => handleInputChange(event)}
+        onChange={(event) => handleNewSongInputChange(event)}
       />
       <button
         className="border-4 border-radius"
