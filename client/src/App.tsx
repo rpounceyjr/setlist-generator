@@ -3,7 +3,6 @@ import React, { useState, useEffect } from "react";
 import "./styles/app.css";
 import FilterRow from "./components/FilterRow";
 import NewSongInput from "./components/NewSongInput";
-import ResetButton from "./components/ResetButton";
 import SongDiv from "./components/SongDiv";
 import SortingRow from "./components/SortingRow";
 import { getAllSongs, createNewSong } from "./utils/API";
@@ -94,17 +93,29 @@ const App: React.FC = () => {
   const handleFilterSongInputChange = (event: any) => {
     let { name, value } = event.target;
     setFilterParameters({ ...filterParameters, [name]: value });
-    console.log("filter params", filterParameters);
+    console.log("Filter parameters", filterParameters);
   };
 
   const filterSongs = (event: any) => {
     event.preventDefault();
 
     const filteredSongs = [...setlistState].filter((song) => {
-      return song.composer === filterParameters.composer;
+      return (
+        song.title?.includes(filterParameters.title) &&
+        song.composer?.includes(filterParameters.composer) &&
+        song.songKey?.includes(filterParameters.songKey) &&
+        song.style?.includes(filterParameters.style)
+      );
     });
 
     setSetlistState(filteredSongs);
+
+    setFilterParameters({
+      title: "",
+      composer: "",
+      songKey: "",
+      style: "",
+    });
   };
 
   return (
