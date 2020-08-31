@@ -23,24 +23,28 @@ const NewSongInput: React.FC<Props> = ({
     <form className="text-center">
       <input
         name="title"
+        className="border"
         placeholder="Title"
         value={title}
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="composer"
+        className="border"
         placeholder="Composer"
         value={composer}
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="songKey"
+        className="border"
         placeholder="Key"
         value={songKey}
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="style"
+        className="border"
         placeholder="Style"
         value={style}
         onChange={(event) => handleNewSongInputChange(event)}

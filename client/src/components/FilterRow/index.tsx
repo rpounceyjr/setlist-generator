@@ -6,7 +6,7 @@ interface Props {
   filterSongs: (event: any) => void;
   loadInitialSongs: () => void;
   handleFilterSongInputChange: (event: any) => void;
-  setlistState: {};
+  songPool: {};
 }
 
 const FilterRow: React.FC<Props> = ({
@@ -14,31 +14,35 @@ const FilterRow: React.FC<Props> = ({
   filterSongs,
   loadInitialSongs,
   handleFilterSongInputChange,
-  setlistState,
+  songPool,
 }) => {
   return (
     <div className="text-center">
       <form>
         <input
           name="title"
+          className="border"
           placeholder="Title"
           value={filterParameters.title}
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <input
           name="composer"
+          className="border"
           placeholder="Composer Name"
           value={filterParameters.composer}
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <input
           name="songKey"
+          className="border"
           placeholder="Key"
           value={filterParameters.songKey}
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <input
           name="style"
+          className="border"
           placeholder="Style"
           value={filterParameters.style}
           onChange={(event: any) => handleFilterSongInputChange(event)}
@@ -52,7 +56,7 @@ const FilterRow: React.FC<Props> = ({
       </form>
       <ResetButton
         loadInitialSongs={() => loadInitialSongs()}
-        setlistState={setlistState}
+        songPool={songPool}
       />
     </div>
   );
