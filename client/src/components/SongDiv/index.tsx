@@ -3,11 +3,11 @@ import React, { useState } from "react";
 
 interface Props {
   title: string;
-  composer?: string;
+  composer: string;
   songKey?: string;
   style?: string;
-  addToSetlist: (title: string) => void;
-  removeFromSetlist: (title: string) => void;
+  addToSetlist: (title: string, composer: string) => void;
+  removeFromSetlist: (title: string, composer: string) => void;
 }
 
 const SongDiv: React.FC<Props> = ({
@@ -20,13 +20,13 @@ const SongDiv: React.FC<Props> = ({
 }) => {
   const [clicked, setClicked] = useState<boolean>(false);
 
-  const addOrRemoveSong = (title: string) => {
+  const addOrRemoveSong = (title: string, composer: string) => {
     if (!clicked) {
       setClicked(true);
-      addToSetlist(title);
+      addToSetlist(title, composer);
     } else {
       setClicked(false);
-      removeFromSetlist(title);
+      removeFromSetlist(title, composer);
     }
 
     console.log("clicked?", clicked);
@@ -34,7 +34,7 @@ const SongDiv: React.FC<Props> = ({
 
   return (
     <div className="text-center border-solid border-4 border-grey-600">
-      <input type="checkbox" onClick={() => addOrRemoveSong(title)} />
+      <input type="checkbox" onClick={() => addOrRemoveSong(title, composer)} />
       <span className="text-lg"> Title: {title}</span> || Composer: {composer}{" "}
       || Key: {songKey} || Style: {style}
     </div>

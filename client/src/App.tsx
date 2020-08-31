@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./styles/app.css";
 import FilterRow from "./components/FilterRow";
 import NewSongInput from "./components/NewSongInput";
+import SetlistSongDiv from "./components/SetlistSongDiv";
 import SongDiv from "./components/SongDiv";
 import SortingRow from "./components/SortingRow";
 import { getAllSongs, createNewSong } from "./utils/API";
@@ -121,25 +122,28 @@ const App: React.FC = () => {
     });
   };
 
-  const addToSetlist = (title: string) => {
+  const addToSetlist = (title: string, composer:string) => {
     console.log("adding...");
+    console.log(setlist);
     dispatch({
       type: "ADD_TO_SETLIST",
-      title: title,
+      setlist: {
+        title, 
+        composer
+      }
     });
   };
 
-  const removeFromSetlist = (title: string) => {
+  const removeFromSetlist = (title: string, composer:string) => {
     console.log("removing...");
     dispatch({
       type: "REMOVE_FROM_SETLIST",
-      title: title,
+      setlist: {
+        title, 
+        composer
+      }
     });
   };
-
-  useEffect(() => {
-    console.log("Setlist", setlist);
-  }, [setlist]);
 
   return (
     <div>
@@ -162,6 +166,16 @@ const App: React.FC = () => {
         handleFilterSongInputChange={handleFilterSongInputChange}
         songPool={songPool}
       />
+      <hr />
+      <h3 className="text-center text-xl">Setlist:</h3>
+      {setlist && setlist.map((song:any, index: number) => (
+        <SetlistSongDiv 
+          key={index}
+          title={song.title}
+          composer={song.composer}/>
+      ))}
+      <hr />
+      <hr />
       {!isLoading &&
         songPool &&
         songPool.map((song: any) => (
