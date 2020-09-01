@@ -1,0 +1,3 @@
+# Setlist Creator
+
+This app uses Typescript, Tailwind CSS, React, Redux, Node, Express, and MongoDB to create setlists for performances.  Filter by title, composer name, style, or key.  New songs can be added to the database by providing the above information (only title is required for new entries).  Click the checkbox next to song names to add the song to your setlist.  Uncheck the box to remove the song from the setlist.  Users can also specify the number of songs and click the random setlist generator button to create a random setlist or flesh out an existing setlist with random songs.  Setlists can be saved for future reference.

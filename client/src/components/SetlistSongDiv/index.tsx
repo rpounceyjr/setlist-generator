@@ -7,7 +7,7 @@ interface Props {
 
 const SetlistSongDiv: React.FC<Props> = ({ title, composer }) => {
   return (
-    <li className="text-center">
+    <li className="text-center bg-indigo-300 text-green-600">
       {title} || {composer}
     </li>
   );

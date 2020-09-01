@@ -97,7 +97,6 @@ const App: React.FC = () => {
   const handleFilterSongInputChange = (event: any) => {
     let { name, value } = event.target;
     setFilterParameters({ ...filterParameters, [name]: value });
-    console.log("Filter parameters", filterParameters);
   };
 
   const filterSongs = (event: any) => {
@@ -123,8 +122,6 @@ const App: React.FC = () => {
   };
 
   const addToSetlist = (title: string, composer:string) => {
-    console.log("adding...");
-    console.log(setlist);
     dispatch({
       type: "ADD_TO_SETLIST",
       setlist: {
@@ -135,7 +132,6 @@ const App: React.FC = () => {
   };
 
   const removeFromSetlist = (title: string, composer:string) => {
-    console.log("removing...");
     dispatch({
       type: "REMOVE_FROM_SETLIST",
       setlist: {

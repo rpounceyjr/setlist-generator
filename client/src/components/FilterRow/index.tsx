@@ -56,7 +56,6 @@ const FilterRow: React.FC<Props> = ({
       </form>
       <ResetButton
         loadInitialSongs={() => loadInitialSongs()}
-        songPool={songPool}
       />
     </div>
   );

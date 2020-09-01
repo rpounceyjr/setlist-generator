@@ -28,8 +28,6 @@ const SongDiv: React.FC<Props> = ({
       setClicked(false);
       removeFromSetlist(title, composer);
     }
-
-    console.log("clicked?", clicked);
   };
 
   return (
