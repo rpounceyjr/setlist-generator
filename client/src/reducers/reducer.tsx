@@ -13,6 +13,12 @@ const rootReducer = (state:any = initState, action: AnyAction) => {
         // figure out how to strong type this so song isn't any type
         setlist: state.setlist.filter((song:any) => song.title !== action.setlist.title && song.composer !== action.setlist.composer),
       };
+    case "CLEAR_SETLIST":
+      console.log("clearing setlist...")
+      return {
+        ...state,
+        setlist: []
+      }
     default:
       return state;
   }

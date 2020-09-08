@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import './App.css';
 import "./styles/app.css";
+import ClearSetlistButton from "./components/ClearSetlistButton";
 import FilterRow from "./components/FilterRow";
+import Footer from "./components/Footer";
 import NewSongInput from "./components/NewSongInput";
+import RandomSetlistRow from "./components/RandomSetlistRow";
 import SetlistSongDiv from "./components/SetlistSongDiv";
 import SongDiv from "./components/SongDiv";
 import SortingRow from "./components/SortingRow";
@@ -25,6 +28,7 @@ const App: React.FC = () => {
     songKey: "",
     style: "",
   });
+  const [randomSongNumber, setRandomSongNumber] = useState<number>();
 
   const dispatch = useDispatch();
 
@@ -99,6 +103,10 @@ const App: React.FC = () => {
     setFilterParameters({ ...filterParameters, [name]: value });
   };
 
+  const handleRandomSongInput = (event: any) => {
+    setRandomSongNumber(event.target.value);
+  };
+
   const filterSongs = (event: any) => {
     event.preventDefault();
 
@@ -121,23 +129,30 @@ const App: React.FC = () => {
     });
   };
 
-  const addToSetlist = (title: string, composer:string) => {
+  const addToSetlist = (title: string, composer: string) => {
     dispatch({
       type: "ADD_TO_SETLIST",
       setlist: {
-        title, 
-        composer
-      }
+        title,
+        composer,
+      },
     });
   };
 
-  const removeFromSetlist = (title: string, composer:string) => {
+  const removeFromSetlist = (title: string, composer: string) => {
     dispatch({
       type: "REMOVE_FROM_SETLIST",
       setlist: {
-        title, 
-        composer
-      }
+        title,
+        composer,
+      },
+    });
+  };
+
+  const clearSetlist = () => {
+    console.log("clicked clear")
+    dispatch({
+      type: "CLEAR_SETLIST",
     });
   };
 
@@ -145,46 +160,70 @@ const App: React.FC = () => {
     <div>
       <p className="text-center text-xl my-10">Setlist Generator</p>
       <hr />
-      <NewSongInput
-        title={newSongState.title}
-        composer={newSongState.composer}
-        songKey={newSongState.songKey}
-        style={newSongState.style}
-        songState={newSongState}
-        handleNewSongInputChange={handleNewSongInputChange}
-        submitSong={(event: any, song: any) => submitSong(event, song)}
-      />
-      <SortingRow sortAlphabetically={sortAlphabetically} aToZ={aToZ} />
-      <FilterRow
-        filterSongs={(event: any) => filterSongs(event)}
-        filterParameters={filterParameters}
-        loadInitialSongs={loadInitialSongs}
-        handleFilterSongInputChange={handleFilterSongInputChange}
-        songPool={songPool}
-      />
+      <div className="container">
+        <NewSongInput
+          title={newSongState.title}
+          composer={newSongState.composer}
+          songKey={newSongState.songKey}
+          style={newSongState.style}
+          songState={newSongState}
+          handleNewSongInputChange={handleNewSongInputChange}
+          submitSong={(event: any, song: any) => submitSong(event, song)}
+        />
+
+        <FilterRow
+          filterSongs={(event: any) => filterSongs(event)}
+          filterParameters={filterParameters}
+          loadInitialSongs={loadInitialSongs}
+          handleFilterSongInputChange={handleFilterSongInputChange}
+          songPool={songPool}
+        />
+      </div>
       <hr />
-      <h3 className="text-center text-xl">Setlist:</h3>
-      {setlist && setlist.map((song:any, index: number) => (
-        <SetlistSongDiv 
-          key={index}
-          title={song.title}
-          composer={song.composer}/>
-      ))}
-      <hr />
-      <hr />
-      {!isLoading &&
-        songPool &&
-        songPool.map((song: any) => (
-          <SongDiv
-            key={song._id}
-            title={song.title}
-            composer={song.composer}
-            songKey={song.songKey}
-            style={song.style}
-            addToSetlist={addToSetlist}
-            removeFromSetlist={removeFromSetlist}
-          />
-        ))}
+      <div className="m-10 grid grid-cols-2  grid-flow-col col-gap-2">
+        <div className="setlist-div border-2">
+          <hr />
+          <h3 className="text-center text-xl">Setlist:</h3>
+          <hr />
+          {/* need to make this focus on last added song */}
+          <div className="h-64">
+            <div className="h-48 overflow-scroll">
+              {setlist &&
+                setlist.map((song: any, index: number) => (
+                  <SetlistSongDiv
+                    key={index}
+                    title={song.title}
+                    composer={song.composer}
+                  />
+                ))}
+            </div>
+            <RandomSetlistRow
+              handleRandomSongInput={handleRandomSongInput}
+              randomSongNumber={randomSongNumber}
+            />
+            <ClearSetlistButton clearSetlist={clearSetlist} />
+          </div>
+        </div>
+        <div className="songpool-div border-2">
+          <SortingRow sortAlphabetically={sortAlphabetically} aToZ={aToZ} />
+          <div className="h-64 overflow-scroll">
+            {!isLoading &&
+              songPool &&
+              songPool.map((song: any) => (
+                <SongDiv
+                  key={song._id}
+                  title={song.title}
+                  composer={song.composer}
+                  songKey={song.songKey}
+                  style={song.style}
+                  addToSetlist={addToSetlist}
+                  removeFromSetlist={removeFromSetlist}
+                />
+              ))}
+          </div>
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };

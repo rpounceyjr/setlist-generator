@@ -17,38 +17,38 @@ const FilterRow: React.FC<Props> = ({
   songPool,
 }) => {
   return (
-    <div className="text-center">
+    <div className="text-left ml-40">
       <form>
         <input
           name="title"
-          className="border"
+          className="border mx-1"
           placeholder="Title"
           value={filterParameters.title}
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <input
           name="composer"
-          className="border"
+          className="border mx-1"
           placeholder="Composer Name"
           value={filterParameters.composer}
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <input
           name="songKey"
-          className="border"
+          className="border mx-1"
           placeholder="Key"
           value={filterParameters.songKey}
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <input
           name="style"
-          className="border"
+          className="border mx-1"
           placeholder="Style"
           value={filterParameters.style}
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <button
-          className="border-4"
+          className="border-4 mx-1"
           onClick={(event: any) => filterSongs(event)}
         >
           Filter

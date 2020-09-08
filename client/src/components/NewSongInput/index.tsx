@@ -20,40 +20,40 @@ const NewSongInput: React.FC<Props> = ({
   submitSong,
 }) => {
   return (
-    <form className="text-center">
+    <form className="text-left ml-40">
       <input
         name="title"
-        className="border"
+        className="border mx-1"
         placeholder="Title"
         value={title}
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="composer"
-        className="border"
+        className="border mx-1"
         placeholder="Composer"
         value={composer}
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="songKey"
-        className="border"
+        className="border mx-1"
         placeholder="Key"
         value={songKey}
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <input
         name="style"
-        className="border"
+        className="border mx-1"
         placeholder="Style"
         value={style}
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <button
-        className="border-4 border-radius"
+        className="border-4 mx-1"
         onClick={(event) => submitSong(event, songState)}
       >
-        Add Song
+        Add
       </button>
     </form>
   );

@@ -31,7 +31,7 @@ const SongDiv: React.FC<Props> = ({
   };
 
   return (
-    <div className="text-center border-solid border-4 border-grey-600">
+    <div className="text-left border-solid border-4 border-grey-600">
       <input type="checkbox" onClick={() => addOrRemoveSong(title, composer)} />
       <span className="text-lg"> Title: {title}</span> || Composer: {composer}{" "}
       || Key: {songKey} || Style: {style}
