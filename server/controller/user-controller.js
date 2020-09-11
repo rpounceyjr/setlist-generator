@@ -1,4 +1,4 @@
-const { Song } = require("../models");
+const { Song, Setlist } = require("../models");
 
 module.exports = {
   async getAllSongs(req, res) {
@@ -21,4 +21,15 @@ module.exports = {
       return res.status(400).json(err);
     }
   },
+
+  async createNewSetlist({body}, res) {
+    console.log("Made it! body is ", body)
+  try {
+    const newSetlist = await Setlist.create(body);
+    res.json(newSetlist);
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json(err);
+  }
+},
 };

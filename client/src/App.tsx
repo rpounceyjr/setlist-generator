@@ -32,7 +32,7 @@ const App: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const setlist = useSelector((state: any) => state.setlist);
+  const setlistSongs = useSelector((state: any) => state.setlist);
 
   interface NewSong {
     title: string;
@@ -150,7 +150,6 @@ const App: React.FC = () => {
   };
 
   const clearSetlist = () => {
-    console.log("clicked clear")
     dispatch({
       type: "CLEAR_SETLIST",
     });
@@ -188,8 +187,8 @@ const App: React.FC = () => {
           {/* need to make this focus on last added song */}
           <div className="h-64">
             <div className="h-48 overflow-scroll">
-              {setlist &&
-                setlist.map((song: any, index: number) => (
+              {setlistSongs &&
+                setlistSongs.map((song: any, index: number) => (
                   <SetlistSongDiv
                     key={index}
                     title={song.title}

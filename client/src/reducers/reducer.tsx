@@ -18,13 +18,20 @@ const rootReducer = (state:any = initState, action: AnyAction) => {
       return {
         ...state,
         setlist: []
-      }
+      };
+      case "NAME_SETLIST":
+        console.log("naming setlist...")
+        return {
+          ...state,
+          name: action.name
+        }
     default:
       return state;
   }
 };
 
 const initState = {
+  name: "",
   setlist: [],
 };
 
