@@ -14,7 +14,6 @@ const FilterRow: React.FC<Props> = ({
   filterSongs,
   loadInitialSongs,
   handleFilterSongInputChange,
-  songPool,
 }) => {
   return (
     <div className="text-left ml-40">
@@ -48,15 +47,13 @@ const FilterRow: React.FC<Props> = ({
           onChange={(event: any) => handleFilterSongInputChange(event)}
         />
         <button
-          className="border-4 mx-1"
+          className="border-4 mx-1 w-16 text-center"
           onClick={(event: any) => filterSongs(event)}
         >
           Filter
         </button>
       </form>
-      <ResetButton
-        loadInitialSongs={() => loadInitialSongs()}
-      />
+      <ResetButton loadInitialSongs={() => loadInitialSongs()} />
     </div>
   );
 };

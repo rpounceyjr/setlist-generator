@@ -50,7 +50,7 @@ const NewSongInput: React.FC<Props> = ({
         onChange={(event) => handleNewSongInputChange(event)}
       />
       <button
-        className="border-4 mx-1"
+        className="border-4 mx-1 w-16 text-center"
         onClick={(event) => submitSong(event, songState)}
       >
         Add

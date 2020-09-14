@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createNewSetlist } from "../../utils/API";
 
@@ -8,7 +8,6 @@ interface Props {
 }
 
 const SetlistNameModal: React.FC<Props> = ({ isOpen, closeModal }) => {
-  //   const [setlistName, setSetlistName] = useState<string>("");
   const dispatch = useDispatch();
 
   const setlistName = useSelector((state: any) => state.name);
@@ -35,8 +34,8 @@ const SetlistNameModal: React.FC<Props> = ({ isOpen, closeModal }) => {
 
   return (
     <>
-      <div>
-        Enter a Setlist Name<input onChange={handleInputChange}></input>
+      <div className="text-center">
+        Enter a Setlist Name: <input className="border-2" onChange={handleInputChange}></input>
         <button className="border-2" onClick={() => createSetlist(setlist)}>
           Submit
         </button>

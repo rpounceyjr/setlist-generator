@@ -28,7 +28,11 @@ const App: React.FC = () => {
     songKey: "",
     style: "",
   });
-  const [randomSongNumber, setRandomSongNumber] = useState<number>();
+  const [randomSongNumber, setRandomSongNumber] = useState<string>("");
+  const [invalidRandomNumber, setInvalidRandomNumber] = useState<boolean>(
+    false
+  );
+  const [largeRandomNumber, setLargeRandomNumber] = useState<boolean>(false);
 
   const dispatch = useDispatch();
 
@@ -155,8 +159,47 @@ const App: React.FC = () => {
     });
   };
 
+  const createRandomSetlist = (number: string) => {
+    dispatch({
+      type: "CLEAR_SETLIST",
+    });
+
+    const randomSetlist: Array<object> = [];
+
+    if (parseInt(number) > songPool.length) {
+      setRandomSongNumber("");
+      return setLargeRandomNumber(true);
+    } else if (isNaN(parseInt(number))) {
+      setRandomSongNumber("");
+      return setInvalidRandomNumber(true);
+    } else {
+      setLargeRandomNumber(false);
+      setInvalidRandomNumber(false);
+
+      while (randomSetlist.length < parseInt(number)) {
+        console.log("adding songs");
+
+        let randomSong = songPool[Math.floor(Math.random() * songPool.length)];
+        if (!randomSetlist.includes(randomSong)) randomSetlist.push(randomSong);
+      }
+
+      // Again, need to find a way to strong-type this instead of using any
+      randomSetlist.forEach((song: any) => {
+        dispatch({
+          type: "ADD_TO_SETLIST",
+          setlist: {
+            title: song.title,
+            composer: song.composer,
+          },
+        });
+      });
+      setRandomSongNumber("");
+    }
+  };
+
   return (
     <div>
+      {console.log("song pool", songPool)}
       <p className="text-center text-xl my-10">Setlist Generator</p>
       <hr />
       <div className="container">
@@ -185,7 +228,7 @@ const App: React.FC = () => {
           <h3 className="text-center text-xl">Setlist:</h3>
           <hr />
           {/* need to make this focus on last added song */}
-          <div className="h-64">
+          <div>
             <div className="h-48 overflow-scroll">
               {setlistSongs &&
                 setlistSongs.map((song: any, index: number) => (
@@ -197,10 +240,16 @@ const App: React.FC = () => {
                 ))}
             </div>
             <RandomSetlistRow
+              createRandomSetlist={createRandomSetlist}
               handleRandomSongInput={handleRandomSongInput}
+              invalidRandomNumber={invalidRandomNumber}
+              largeRandomNumber={largeRandomNumber}
               randomSongNumber={randomSongNumber}
+              
             />
-            <ClearSetlistButton clearSetlist={clearSetlist} />
+            <div className="text-center">
+              <ClearSetlistButton clearSetlist={clearSetlist} />
+            </div>
           </div>
         </div>
         <div className="songpool-div border-2">

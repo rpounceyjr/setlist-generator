@@ -6,11 +6,11 @@ interface Props {
 
 const ResetButton: React.FC<Props> = ({ loadInitialSongs }) => {
   return (
-    <>
-      <button className="text-center border-2" onClick={loadInitialSongs}>
+    <div className="text-center">
+      <button className="text-center border-4 w-16" onClick={loadInitialSongs}>
         Reset
       </button>
-    </>
+    </div>
   );
 };
 
