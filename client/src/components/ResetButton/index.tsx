@@ -7,8 +7,8 @@ interface Props {
 const ResetButton: React.FC<Props> = ({ loadInitialSongs }) => {
   return (
     <div className="text-center">
-      <button className="text-center border-4 w-16" onClick={loadInitialSongs}>
-        Reset
+      <button className="text-center border-4 w-48" onClick={loadInitialSongs}>
+        Reset Song Pool
       </button>
     </div>
   );

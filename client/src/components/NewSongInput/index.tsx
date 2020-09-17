@@ -6,8 +6,8 @@ interface Props {
   songKey?: string;
   style?: string;
   songState: object;
-  handleNewSongInputChange: (event: any) => void;
-  submitSong: (event: any, song: any) => void;
+  handleNewSongInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  submitSong: (event: React.MouseEvent<HTMLButtonElement>, song: any) => void;
 }
 
 const NewSongInput: React.FC<Props> = ({

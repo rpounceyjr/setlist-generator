@@ -1,18 +1,15 @@
 import React from "react";
-import ResetButton from "../ResetButton";
 
 interface Props {
   filterParameters: any;
-  filterSongs: (event: any) => void;
-  loadInitialSongs: () => void;
-  handleFilterSongInputChange: (event: any) => void;
+  filterSongs: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  handleFilterSongInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   songPool: {};
 }
 
 const FilterRow: React.FC<Props> = ({
   filterParameters,
   filterSongs,
-  loadInitialSongs,
   handleFilterSongInputChange,
 }) => {
   return (
@@ -23,37 +20,36 @@ const FilterRow: React.FC<Props> = ({
           className="border mx-1"
           placeholder="Title"
           value={filterParameters.title}
-          onChange={(event: any) => handleFilterSongInputChange(event)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleFilterSongInputChange(event)}
         />
         <input
           name="composer"
           className="border mx-1"
           placeholder="Composer Name"
           value={filterParameters.composer}
-          onChange={(event: any) => handleFilterSongInputChange(event)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleFilterSongInputChange(event)}
         />
         <input
           name="songKey"
           className="border mx-1"
           placeholder="Key"
           value={filterParameters.songKey}
-          onChange={(event: any) => handleFilterSongInputChange(event)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleFilterSongInputChange(event)}
         />
         <input
           name="style"
           className="border mx-1"
           placeholder="Style"
           value={filterParameters.style}
-          onChange={(event: any) => handleFilterSongInputChange(event)}
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => handleFilterSongInputChange(event)}
         />
         <button
           className="border-4 mx-1 w-16 text-center"
-          onClick={(event: any) => filterSongs(event)}
+          onClick={(event: React.MouseEvent<HTMLButtonElement>) => filterSongs(event)}
         >
           Filter
         </button>
       </form>
-      <ResetButton loadInitialSongs={() => loadInitialSongs()} />
     </div>
   );
 };

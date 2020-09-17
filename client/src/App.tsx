@@ -7,6 +7,7 @@ import FilterRow from "./components/FilterRow";
 import Footer from "./components/Footer";
 import NewSongInput from "./components/NewSongInput";
 import RandomSetlistRow from "./components/RandomSetlistRow";
+import ResetButton from "./components/ResetButton";
 import SetlistSongDiv from "./components/SetlistSongDiv";
 import SongDiv from "./components/SongDiv";
 import SortingRow from "./components/SortingRow";
@@ -61,7 +62,7 @@ const App: React.FC = () => {
     setIsLoading(false);
   }
 
-  function submitSong(event: any, song: any) {
+  function submitSong(event: React.MouseEvent<HTMLButtonElement>, song: any) {
     event.preventDefault();
 
     createNewSong(song)
@@ -96,30 +97,30 @@ const App: React.FC = () => {
     setSongPool(alphabetizedSongs);
   };
 
-  const handleNewSongInputChange = (event: any) => {
+  const handleNewSongInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     setNewSongState({ ...newSongState, [name]: value });
     getAllSongs();
   };
 
-  const handleFilterSongInputChange = (event: any) => {
+  const handleFilterSongInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     let { name, value } = event.target;
     setFilterParameters({ ...filterParameters, [name]: value });
   };
 
-  const handleRandomSongInput = (event: any) => {
+  const handleRandomSongInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRandomSongNumber(event.target.value);
   };
 
-  const filterSongs = (event: any) => {
+  const filterSongs = (event: React.ChangeEvent<HTMLButtonElement>) => {
     event.preventDefault();
 
     const filteredSongs = [...songPool].filter((song) => {
       return (
-        song.title?.includes(filterParameters.title) &&
-        song.composer?.includes(filterParameters.composer) &&
-        song.songKey?.includes(filterParameters.songKey) &&
-        song.style?.includes(filterParameters.style)
+        song.title?.toLowerCase().includes(filterParameters.title.toLowerCase()) &&
+        song.composer?.toLowerCase().includes(filterParameters.composer.toLowerCase()) &&
+        song.songKey?.toLowerCase().includes(filterParameters.songKey.toLowerCase()) &&
+        song.style?.toLowerCase().includes(filterParameters.style.toLowerCase())
       );
     });
 
@@ -216,7 +217,6 @@ const App: React.FC = () => {
         <FilterRow
           filterSongs={(event: any) => filterSongs(event)}
           filterParameters={filterParameters}
-          loadInitialSongs={loadInitialSongs}
           handleFilterSongInputChange={handleFilterSongInputChange}
           songPool={songPool}
         />
@@ -245,7 +245,6 @@ const App: React.FC = () => {
               invalidRandomNumber={invalidRandomNumber}
               largeRandomNumber={largeRandomNumber}
               randomSongNumber={randomSongNumber}
-              
             />
             <div className="text-center">
               <ClearSetlistButton clearSetlist={clearSetlist} />
@@ -269,6 +268,7 @@ const App: React.FC = () => {
                 />
               ))}
           </div>
+          <ResetButton loadInitialSongs={loadInitialSongs} />
         </div>
       </div>
       <Footer />
