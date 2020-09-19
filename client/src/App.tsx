@@ -97,18 +97,24 @@ const App: React.FC = () => {
     setSongPool(alphabetizedSongs);
   };
 
-  const handleNewSongInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleNewSongInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     let { name, value } = event.target;
     setNewSongState({ ...newSongState, [name]: value });
     getAllSongs();
   };
 
-  const handleFilterSongInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFilterSongInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     let { name, value } = event.target;
     setFilterParameters({ ...filterParameters, [name]: value });
   };
 
-  const handleRandomSongInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleRandomSongInput = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setRandomSongNumber(event.target.value);
   };
 
@@ -117,14 +123,24 @@ const App: React.FC = () => {
 
     const filteredSongs = [...songPool].filter((song) => {
       return (
-        song.title?.toLowerCase().includes(filterParameters.title.toLowerCase()) &&
-        song.composer?.toLowerCase().includes(filterParameters.composer.toLowerCase()) &&
-        song.songKey?.toLowerCase().includes(filterParameters.songKey.toLowerCase()) &&
+        song.title
+          ?.toLowerCase()
+          .includes(filterParameters.title.toLowerCase()) &&
+        song.composer
+          ?.toLowerCase()
+          .includes(filterParameters.composer.toLowerCase()) &&
+        song.songKey
+          ?.toLowerCase()
+          .includes(filterParameters.songKey.toLowerCase()) &&
         song.style?.toLowerCase().includes(filterParameters.style.toLowerCase())
       );
     });
 
     setSongPool(filteredSongs);
+  };
+
+  const resetSongPool = () => {
+    loadInitialSongs();
 
     setFilterParameters({
       title: "",
@@ -134,22 +150,28 @@ const App: React.FC = () => {
     });
   };
 
-  const addToSetlist = (title: string, composer: string) => {
+  const addToSetlist = (_id: string, title: string, composer: string, songKey: string, style: string) => {
     dispatch({
       type: "ADD_TO_SETLIST",
       setlist: {
+        _id,
         title,
         composer,
+        songKey,
+        style
       },
     });
   };
 
-  const removeFromSetlist = (title: string, composer: string) => {
+  const removeFromSetlist = (_id: string, title: string, composer: string, songKey: string, style: string) => {
     dispatch({
       type: "REMOVE_FROM_SETLIST",
       setlist: {
+        _id,
         title,
         composer,
+        songKey,
+        style
       },
     });
   };
@@ -161,9 +183,10 @@ const App: React.FC = () => {
   };
 
   const createRandomSetlist = (number: string) => {
-    dispatch({
-      type: "CLEAR_SETLIST",
-    });
+    // dispatch({
+    //   type: "CLEAR_SETLIST",
+    // });
+    console.log("setlist Songs from redux", setlistSongs);
 
     const randomSetlist: Array<object> = [];
 
@@ -181,7 +204,13 @@ const App: React.FC = () => {
         console.log("adding songs");
 
         let randomSong = songPool[Math.floor(Math.random() * songPool.length)];
-        if (!randomSetlist.includes(randomSong)) randomSetlist.push(randomSong);
+        if (
+          !randomSetlist.includes(randomSong) &&
+          !setlistSongs.includes(randomSong)
+        ) {
+          console.log("random song", randomSong);
+          randomSetlist.push(randomSong);
+        }
       }
 
       // Again, need to find a way to strong-type this instead of using any
@@ -189,8 +218,11 @@ const App: React.FC = () => {
         dispatch({
           type: "ADD_TO_SETLIST",
           setlist: {
+            id: song._id,
             title: song.title,
             composer: song.composer,
+            songKey: song.songKey,
+            style: song.style
           },
         });
       });
@@ -259,6 +291,7 @@ const App: React.FC = () => {
               songPool.map((song: any) => (
                 <SongDiv
                   key={song._id}
+                  _id={song._id}
                   title={song.title}
                   composer={song.composer}
                   songKey={song.songKey}
@@ -268,7 +301,7 @@ const App: React.FC = () => {
                 />
               ))}
           </div>
-          <ResetButton loadInitialSongs={loadInitialSongs} />
+          <ResetButton resetSongPool={resetSongPool} />
         </div>
       </div>
       <Footer />
